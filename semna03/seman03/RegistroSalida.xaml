@@ -1,0 +1,95 @@
+<Window x:Class="seman03.RegistroSalida"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Operaciones - Registro de Salida" Height="680" Width="850"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Título -->
+        <TextBlock Grid.Row="0" Text="Registro de Salidas de Vehículos" FontSize="20" FontWeight="Bold"
+                   Foreground="#1F2937" Margin="0,0,0,10"/>
+
+        <!-- Formulario -->
+        <GroupBox Grid.Row="1" Header="Datos de la Salida" Padding="12" Margin="0,0,0,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+
+                <!-- Columna 1 -->
+                <TextBlock Text="Tipo Documento:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <ComboBox x:Name="cmbTipoDocumento" Grid.Row="0" Grid.Column="1" Height="28" VerticalContentAlignment="Center" SelectedIndex="0">
+                    <ComboBoxItem Content="Guía de Remisión"/>
+                    <ComboBoxItem Content="Factura"/>
+                    <ComboBoxItem Content="Boleta"/>
+                    <ComboBoxItem Content="Ticket de Balanza"/>
+                </ComboBox>
+
+                <TextBlock Text="Número Documento:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtNumeroDocumento" Grid.Row="1" Grid.Column="1" Height="28" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                <TextBlock Text="Peso:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtPeso" Grid.Row="2" Grid.Column="1" Height="28" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                <TextBlock Text="Tipo Auto:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtTipoAuto" Grid.Row="3" Grid.Column="1" Height="28" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                <!-- Columna 2 -->
+                <TextBlock Text="Nombre Transportista:" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtNombreTransportista" Grid.Row="0" Grid.Column="4" Height="28" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                <TextBlock Text="Fecha y Hora:" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtFechaHora" Grid.Row="1" Grid.Column="4" Height="28" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                <TextBlock Text="Peso de Ingreso:" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtPesoIngreso" Grid.Row="2" Grid.Column="4" Height="28" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                <TextBlock Text="Peso de Salida:" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtPesoSalida" Grid.Row="3" Grid.Column="4" Height="28" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                <!-- Botones -->
+                <StackPanel Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+                    <Button x:Name="btnLimpiar" Content="Limpiar" Width="90" Height="30" Margin="0,0,10,0"
+                            Background="#E5E7EB" Foreground="#1F2937" FontWeight="SemiBold" Click="btnLimpiar_Click"/>
+                    <Button x:Name="btnGuardar" Content="Guardar Salida" Width="120" Height="30"
+                            Background="#2563EB" Foreground="White" FontWeight="Bold" Click="btnGuardar_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Lista de registros guardados -->
+        <GroupBox Grid.Row="2" Header="Historial de Salidas Registradas" Padding="5">
+            <DataGrid x:Name="dgRegistros" AutoGenerateColumns="False" IsReadOnly="True"
+                      CanUserAddRows="False" SelectionMode="Single"
+                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                      BorderBrush="#E5E7EB" RowHeight="26">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Tipo Doc." Binding="{Binding TipoDocumento}" Width="110"/>
+                    <DataGridTextColumn Header="N° Doc." Binding="{Binding NumeroDocumento}" Width="100"/>
+                    <DataGridTextColumn Header="Peso" Binding="{Binding Peso}" Width="80"/>
+                    <DataGridTextColumn Header="Tipo Auto" Binding="{Binding TipoAuto}" Width="120"/>
+                    <DataGridTextColumn Header="Transportista" Binding="{Binding NombreTransportista}" Width="180"/>
+                    <DataGridTextColumn Header="Fecha y Hora" Binding="{Binding FechaYHora}" Width="130"/>
+                    <DataGridTextColumn Header="P. Ingreso" Binding="{Binding PesoIngreso}" Width="90"/>
+                    <DataGridTextColumn Header="P. Salida" Binding="{Binding PesoSalida}" Width="90"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</Window>

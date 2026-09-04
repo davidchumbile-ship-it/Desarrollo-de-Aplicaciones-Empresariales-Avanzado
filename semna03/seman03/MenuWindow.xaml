@@ -1,0 +1,116 @@
+<Window x:Class="seman03.MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sistema de Gestión y Control - Menú Principal" Height="500" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel Background="#F9FAFB">
+        <!-- Menú Principal Requerido -->
+        <Menu DockPanel.Dock="Top" Background="#FFFFFF" BorderBrush="#E5E7EB" BorderThickness="0,0,0,1" FontSize="14" Padding="5,2">
+            <!-- Operaciones (2 Puntos) -->
+            <MenuItem Header="Operaciones">
+                <MenuItem Header="Ingresos" Click="Ingresos_Click"/>
+                <MenuItem Header="Salida" Click="Salida_Click"/>
+            </MenuItem>
+
+            <!-- Mantenimientos (2 Puntos) -->
+            <MenuItem Header="Mantenimientos">
+                <MenuItem Header="Conductores" Click="Conductores_Click"/>
+                <MenuItem Header="Transportistas" Click="Transportistas_Click"/>
+                <MenuItem Header="Camiones" Click="Camiones_Click"/>
+                <MenuItem Header="Productos" Click="Productos_Click"/>
+            </MenuItem>
+
+            <!-- Reportes (2 Puntos) -->
+            <MenuItem Header="Reportes">
+                <MenuItem Header="Cargas" Click="Cargas_Click"/>
+                <MenuItem Header="Ingresos" Click="ReporteIngresos_Click"/>
+                <MenuItem Header="Salidas" Click="ReporteSalidas_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="Sesión" Margin="10,0,0,0">
+                <MenuItem Header="Cerrar Sesión" Click="CerrarSesion_Click"/>
+                <MenuItem Header="Salir" Click="Salir_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Panel de Bienvenida y Accesos Directos -->
+        <Grid Margin="25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Margin="0,0,0,25">
+                <TextBlock Text="Panel de Control Principal" FontSize="26" FontWeight="Bold" Foreground="#111827"/>
+                <TextBlock Text="Seleccione una opción de la barra de menú superior o utilice los accesos rápidos a continuación:"
+                           FontSize="14" Foreground="#6B7280" Margin="0,5,0,0"/>
+            </StackPanel>
+
+            <!-- Tarjetas de Acceso Rápido para evaluación -->
+            <UniformGrid Grid.Row="1" Columns="3" Margin="0,0,0,20">
+                <!-- Tarjeta Operaciones: Registro de Salidas -->
+                <Border Background="White" CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1"
+                        Padding="18" Margin="8">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="8" Color="#E5E7EB" Opacity="0.6" Direction="270" ShadowDepth="1"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="OPERACIONES" FontSize="11" FontWeight="Bold" Foreground="#2563EB"/>
+                        <TextBlock Text="Registro de Salida" FontSize="16" FontWeight="Bold" Foreground="#1F2937" Margin="0,4,0,8"/>
+                        <TextBlock Text="Registrar salida de vehículos con documentos, pesos y transportista."
+                                   FontSize="12" Foreground="#6B7280" TextWrapping="Wrap" Margin="0,0,0,15"/>
+                        <Button Content="Abrir Registro" Height="30" Background="#2563EB" Foreground="White"
+                                FontWeight="SemiBold" Cursor="Hand" Click="Salida_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Tarjeta Mantenimientos: Camiones y Conductores -->
+                <Border Background="White" CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1"
+                        Padding="18" Margin="8">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="8" Color="#E5E7EB" Opacity="0.6" Direction="270" ShadowDepth="1"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="MANTENIMIENTOS" FontSize="11" FontWeight="Bold" Foreground="#059669"/>
+                        <TextBlock Text="Camiones y Conductores" FontSize="16" FontWeight="Bold" Foreground="#1F2937" Margin="0,4,0,8"/>
+                        <TextBlock Text="Gestión de unidades (placa, peso máx, peso vacío) y lista de conductores."
+                                   FontSize="12" Foreground="#6B7280" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Content="Camiones" Grid.Column="0" Height="30" Margin="0,0,4,0"
+                                    Background="#059669" Foreground="White" FontWeight="SemiBold" Cursor="Hand" Click="Camiones_Click"/>
+                            <Button Content="Conductores" Grid.Column="1" Height="30" Margin="4,0,0,0"
+                                    Background="#059669" Foreground="White" FontWeight="SemiBold" Cursor="Hand" Click="Conductores_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Tarjeta Reportes: Listado y Búsqueda -->
+                <Border Background="White" CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1"
+                        Padding="18" Margin="8">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="8" Color="#E5E7EB" Opacity="0.6" Direction="270" ShadowDepth="1"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="REPORTES" FontSize="11" FontWeight="Bold" Foreground="#7C3AED"/>
+                        <TextBlock Text="Listado de Salidas" FontSize="16" FontWeight="Bold" Foreground="#1F2937" Margin="0,4,0,8"/>
+                        <TextBlock Text="Reporte detallado de salidas con filtro de búsqueda por transportista."
+                                   FontSize="12" Foreground="#6B7280" TextWrapping="Wrap" Margin="0,0,0,15"/>
+                        <Button Content="Abrir Reporte" Height="30" Background="#7C3AED" Foreground="White"
+                                FontWeight="SemiBold" Cursor="Hand" Click="ReporteSalidas_Click"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Pie informativo -->
+            <Border Grid.Row="2" VerticalAlignment="Bottom" Padding="10">
+                <TextBlock Text="Usuario actual: admin | Sistema de Gestión Empresarial - Semana 03"
+                           FontSize="12" Foreground="#9CA3AF" HorizontalAlignment="Center"/>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>
