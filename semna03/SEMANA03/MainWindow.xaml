@@ -1,0 +1,230 @@
+<Window x:Class="SEMANA03.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tecsup - ADO.NET SEMANA 03 (Modo Conectado y Desconectado)"
+        Height="680" Width="950" MinHeight="600" MinWidth="850"
+        WindowStartupLocation="CenterScreen" Background="#F0F2F5">
+    <Window.Resources>
+        <Style TargetType="TabItem">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="14,10"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Banner Superior -->
+        <Border Grid.Row="0" Background="#1B365D" Padding="20,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Desafío ADO.NET - SEMANA 03" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Text="Base de Datos: Tecsup2026DB | Demostración de Modo Conectado (SqlDataReader) y Desconectado (DataTable)"
+                               FontSize="12" Foreground="#BACEE8" Margin="0,4,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Background="#2B579A" CornerRadius="12" Padding="10,4">
+                        <TextBlock Text="● Conectado a .\SQLEXPRESS" Foreground="#70D8A5" FontWeight="SemiBold" FontSize="12"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Barra de accesos directos para abrir ventanas individuales -->
+        <Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#E4E7EB" BorderThickness="0,0,0,1" Padding="14,8">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Abrir ventana externa:" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#555" Margin="0,0,10,0" FontSize="12"/>
+                <Button Content="Students (DataTable)" Click="btnAbrirWinStudentsDT_Click" Padding="8,4" Margin="2,0" Background="#F5F7FA" BorderBrush="#D1D5DB" FontSize="11"/>
+                <Button Content="Students (DataReader)" Click="btnAbrirWinStudentsDR_Click" Padding="8,4" Margin="2,0" Background="#F5F7FA" BorderBrush="#D1D5DB" FontSize="11"/>
+                <Button Content="Buscar Students" Click="btnAbrirWinBuscarStudents_Click" Padding="8,4" Margin="2,0" Background="#F5F7FA" BorderBrush="#D1D5DB" FontSize="11"/>
+                <Button Content="Products (DataTable)" Click="btnAbrirWinProductsDT_Click" Padding="8,4" Margin="2,0" Background="#F5F7FA" BorderBrush="#D1D5DB" FontSize="11"/>
+                <Button Content="Products (DataReader)" Click="btnAbrirWinProductsDR_Click" Padding="8,4" Margin="2,0" Background="#F5F7FA" BorderBrush="#D1D5DB" FontSize="11"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Pestañas Principales -->
+        <TabControl Grid.Row="2" Margin="14" Background="White" BorderBrush="#D8DCE2">
+
+            <!-- TAB 1: Students con DataTable (Desconectado) -->
+            <TabItem Header="1. Students (DataTable)">
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#EEF4FF" BorderBrush="#C7DBFF" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="Modo Desconectado - SqlDataAdapter &amp; DataTable" FontWeight="Bold" Foreground="#1E40AF" FontSize="14"/>
+                            <TextBlock Text="Carga todos los registros de 'Students' en memoria dentro de un DataTable desconectado." Foreground="#374151" FontSize="12" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                        <Button Content="🔄 Cargar Estudiantes (DataTable)" Click="btnTab1Cargar_Click"
+                                Padding="14,7" Background="#1E40AF" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
+                        <Button Content="Limpiar" Click="btnTab1Limpiar_Click"
+                                Padding="12,7" Margin="10,0,0,0" Background="#E5E7EB" Foreground="#1F2937" BorderThickness="0"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="dgTab1Students" Grid.Row="2" AutoGenerateColumns="True" IsReadOnly="True"
+                              AlternatingRowBackground="#F9FAFB" RowHeight="28" GridLinesVisibility="Horizontal"
+                              BorderBrush="#D1D5DB" BorderThickness="1" HeadersVisibility="Column"/>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 2: Students con DataReader (Conectado) -->
+            <TabItem Header="2. Students (DataReader)">
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#ECFDF5" BorderBrush="#A7F3D0" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="Modo Conectado - SqlDataReader &amp; Lista de Objetos List&lt;Student&gt;" FontWeight="Bold" Foreground="#065F46" FontSize="14"/>
+                            <TextBlock Text="Lee secuencialmente cada fila con SqlDataReader manteniendo la conexión abierta y mapeando a objetos." Foreground="#374151" FontSize="12" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                        <Button Content="🔄 Cargar Estudiantes (DataReader)" Click="btnTab2Cargar_Click"
+                                Padding="14,7" Background="#059669" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
+                        <Button Content="Limpiar" Click="btnTab2Limpiar_Click"
+                                Padding="12,7" Margin="10,0,0,0" Background="#E5E7EB" Foreground="#1F2937" BorderThickness="0"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="dgTab2Students" Grid.Row="2" AutoGenerateColumns="True" IsReadOnly="True"
+                              AlternatingRowBackground="#F9FAFB" RowHeight="28" GridLinesVisibility="Horizontal"
+                              BorderBrush="#D1D5DB" BorderThickness="1" HeadersVisibility="Column"/>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 3: Buscar Students con DataReader -->
+            <TabItem Header="3. Buscar Students (DataReader)">
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#F5F3FF" BorderBrush="#DDD6FE" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="Búsqueda Parametrizada por Nombre - SqlDataReader" FontWeight="Bold" Foreground="#5B21B6" FontSize="14"/>
+                            <TextBlock Text="Filtra registros por FirstName utilizando parámetros SQL seguros y retorna una lista de objetos Student." Foreground="#374151" FontSize="12" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="1" Background="#FAFAFA" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Buscar por nombre:" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,10,0"/>
+                            <TextBox x:Name="txtTab3Buscar" Grid.Column="1" Height="32" VerticalContentAlignment="Center" Padding="8,0" Margin="0,0,10,0" KeyDown="txtTab3Buscar_KeyDown"/>
+                            <Button Grid.Column="2" Content="🔍 Buscar" Click="btnTab3Buscar_Click"
+                                    Padding="16,6" Background="#7C3AED" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Margin="0,0,8,0"/>
+                            <Button Grid.Column="3" Content="Mostrar Todos" Click="btnTab3MostrarTodos_Click"
+                                    Padding="12,6" Background="#E5E7EB" Foreground="#1F2937" BorderThickness="0"/>
+                        </Grid>
+                    </Border>
+
+                    <DataGrid x:Name="dgTab3Resultados" Grid.Row="2" AutoGenerateColumns="True" IsReadOnly="True"
+                              AlternatingRowBackground="#F9FAFB" RowHeight="28" GridLinesVisibility="Horizontal"
+                              BorderBrush="#D1D5DB" BorderThickness="1" HeadersVisibility="Column"/>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 4: Products con DataTable (Desconectado) -->
+            <TabItem Header="4. Products (DataTable)">
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#FFF7ED" BorderBrush="#FFEDD5" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="Productos en Modo Desconectado - SqlDataAdapter &amp; DataTable" FontWeight="Bold" Foreground="#9A3412" FontSize="14"/>
+                            <TextBlock Text="Carga los 50 productos en memoria dentro de un DataTable usando SqlDataAdapter." Foreground="#374151" FontSize="12" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                        <Button Content="🔄 Cargar Productos (DataTable)" Click="btnTab4Cargar_Click"
+                                Padding="14,7" Background="#EA580C" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
+                        <Button Content="Limpiar" Click="btnTab4Limpiar_Click"
+                                Padding="12,7" Margin="10,0,0,0" Background="#E5E7EB" Foreground="#1F2937" BorderThickness="0"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="dgTab4Products" Grid.Row="2" AutoGenerateColumns="True" IsReadOnly="True"
+                              AlternatingRowBackground="#F9FAFB" RowHeight="28" GridLinesVisibility="Horizontal"
+                              BorderBrush="#D1D5DB" BorderThickness="1" HeadersVisibility="Column"/>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 5: Products con DataReader (Conectado) -->
+            <TabItem Header="5. Products (DataReader)">
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#F0FDFA" BorderBrush="#CCFBF1" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="Productos en Modo Conectado - SqlDataReader &amp; Lista de Objetos List&lt;Product&gt;" FontWeight="Bold" Foreground="#115E59" FontSize="14"/>
+                            <TextBlock Text="Recorre los registros fila a fila con SqlDataReader y los instancia como objetos Product." Foreground="#374151" FontSize="12" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                        <Button Content="🔄 Cargar Productos (DataReader)" Click="btnTab5Cargar_Click"
+                                Padding="14,7" Background="#0D9488" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
+                        <Button Content="Limpiar" Click="btnTab5Limpiar_Click"
+                                Padding="12,7" Margin="10,0,0,0" Background="#E5E7EB" Foreground="#1F2937" BorderThickness="0"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="dgTab5Products" Grid.Row="2" AutoGenerateColumns="True" IsReadOnly="True"
+                              AlternatingRowBackground="#F9FAFB" RowHeight="28" GridLinesVisibility="Horizontal"
+                              BorderBrush="#D1D5DB" BorderThickness="1" HeadersVisibility="Column"/>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
+        <!-- Barra de Estado Inferior -->
+        <Border Grid.Row="3" Background="#FFFFFF" BorderBrush="#E4E7EB" BorderThickness="0,1,0,0" Padding="14,8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="txtGlobalStatus" Grid.Column="0" Text="Aplicación lista. Seleccione una pestaña o haga clic en 'Cargar Datos'." Foreground="#4B5563" FontSize="12"/>
+                <TextBlock Grid.Column="1" Text="Tecsup 2026 | ADO.NET" Foreground="#9CA3AF" FontSize="12"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
