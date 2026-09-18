@@ -1,0 +1,30 @@
+<Window x:Class="SEMANA04.Views.VentanaDetallesPedidos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Detalles de Pedidos" Height="500" Width="850"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Detalles de Pedidos por Fecha" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <Label Content="Fecha Inicio:" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpFechaInicio" Width="130" Height="25" Margin="5,0,15,0"/>
+
+            <Label Content="Fecha Fin:" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpFechaFin" Width="130" Height="25" Margin="5,0,15,0"/>
+
+            <Button x:Name="btnConsultar" Content="Consultar" Width="85" Height="25" Click="BtnConsultar_Click"/>
+        </StackPanel>
+
+        <DataGrid x:Name="dgDetallesPedidos" Grid.Row="2"
+                  AutoGenerateColumns="True"
+                  IsReadOnly="True"/>
+    </Grid>
+</Window>
