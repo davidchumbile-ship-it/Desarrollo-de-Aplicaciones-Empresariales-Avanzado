@@ -40,6 +40,12 @@ namespace SEMANA04
             ventana.Show();
         }
 
+        private void MenuCrudProveedores_Click(object sender, RoutedEventArgs e)
+        {
+            var ventana = new VentanaCrudProveedores();
+            ventana.Show();
+        }
+
         private void MenuSalir_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

@@ -213,6 +213,18 @@ namespace SEMANA04.Data
             int colPais = reader.GetOrdinal("pais");
             int colTelefono = reader.GetOrdinal("telefono");
             int colFax = reader.GetOrdinal("fax");
+            
+            bool hasActivo = false;
+            int colActivo = -1;
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                if (reader.GetName(i).Equals("Activo", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasActivo = true;
+                    colActivo = i;
+                    break;
+                }
+            }
 
             while (reader.Read())
             {
@@ -228,10 +240,91 @@ namespace SEMANA04.Data
                     codPostal = reader.IsDBNull(colCodPostal) ? null : reader.GetString(colCodPostal),
                     pais = reader.IsDBNull(colPais) ? null : reader.GetString(colPais),
                     telefono = reader.IsDBNull(colTelefono) ? null : reader.GetString(colTelefono),
-                    fax = reader.IsDBNull(colFax) ? null : reader.GetString(colFax)
+                    fax = reader.IsDBNull(colFax) ? null : reader.GetString(colFax),
+                    Activo = hasActivo ? (reader.IsDBNull(colActivo) ? true : Convert.ToBoolean(reader.GetValue(colActivo))) : true
                 };
 
                 proveedores.Add(proveedor);
+            }
+        }
+
+        public List<Proveedor> ObtenerProveedoresActivos()
+        {
+            var proveedores = new List<Proveedor>();
+            using (SqlConnection conexion = Conexion.ObtenerConexion())
+            {
+                using (SqlCommand cmd = new SqlCommand("USP_ListarProveedoresActivos", conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    conexion.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        LeerProveedores(reader, proveedores);
+                    }
+                }
+            }
+            return proveedores;
+        }
+
+        public void InsertarProveedor(Proveedor p)
+        {
+            using (SqlConnection conexion = Conexion.ObtenerConexion())
+            {
+                using (SqlCommand cmd = new SqlCommand("USP_InsertarProveedor", conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@idProveedor", p.idProveedor));
+                    cmd.Parameters.Add(new SqlParameter("@nombreCompania", p.nombreCompañia ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@nombreContacto", p.nombrecontacto ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@cargoContacto", p.cargocontacto ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@direccion", p.direccion ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@ciudad", p.ciudad ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@region", p.region ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@codPostal", p.codPostal ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@pais", p.pais ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@telefono", p.telefono ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@fax", p.fax ?? (object)DBNull.Value));
+                    conexion.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void ActualizarProveedor(Proveedor p)
+        {
+            using (SqlConnection conexion = Conexion.ObtenerConexion())
+            {
+                using (SqlCommand cmd = new SqlCommand("USP_ActualizarProveedor", conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@idProveedor", p.idProveedor));
+                    cmd.Parameters.Add(new SqlParameter("@nombreCompania", p.nombreCompañia ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@nombreContacto", p.nombrecontacto ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@cargoContacto", p.cargocontacto ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@direccion", p.direccion ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@ciudad", p.ciudad ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@region", p.region ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@codPostal", p.codPostal ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@pais", p.pais ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@telefono", p.telefono ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@fax", p.fax ?? (object)DBNull.Value));
+                    conexion.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void EliminarProveedor(int idProveedor)
+        {
+            using (SqlConnection conexion = Conexion.ObtenerConexion())
+            {
+                using (SqlCommand cmd = new SqlCommand("USP_EliminarProveedorLogico", conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@idProveedor", idProveedor));
+                    conexion.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
     }

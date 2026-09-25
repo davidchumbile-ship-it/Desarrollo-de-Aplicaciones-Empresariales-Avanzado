@@ -13,5 +13,6 @@ namespace SEMANA04.Models
         public string? pais { get; set; }
         public string? telefono { get; set; }
         public string? fax { get; set; }
+        public bool Activo { get; set; }
     }
 }

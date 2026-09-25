@@ -11,6 +11,7 @@
                 <MenuItem Header="Proveedores" Click="MenuProveedoresGeneral_Click"/>
                 <MenuItem Header="Buscar Proveedores" Click="MenuProveedoresBuscar_Click"/>
                 <MenuItem Header="Detalles Pedidos" Click="MenuDetallesPedidos_Click"/>
+                <MenuItem Header="CRUD Proveedores" Click="MenuCrudProveedores_Click"/>
                 <Separator/>
                 <MenuItem Header="Salir" Click="MenuSalir_Click"/>
             </MenuItem>
@@ -23,6 +24,7 @@
                 <Button Content="Proveedores" Height="30" Margin="0,4" Click="MenuProveedoresGeneral_Click"/>
                 <Button Content="Buscar Proveedores" Height="30" Margin="0,4" Click="MenuProveedoresBuscar_Click"/>
                 <Button Content="Detalles Pedidos" Height="30" Margin="0,4" Click="MenuDetallesPedidos_Click"/>
+                <Button Content="CRUD Proveedores" Height="30" Margin="0,4" Click="MenuCrudProveedores_Click"/>
             </StackPanel>
         </Grid>
     </DockPanel>
