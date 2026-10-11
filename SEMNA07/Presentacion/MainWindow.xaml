@@ -1,0 +1,152 @@
+<Window x:Class="Presentacion.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Laboratorio 07 - CRUD en capas" Height="600" Width="950"
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Padding" Value="12,5"/>
+            <Setter Property="MinWidth" Value="90"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+    </Window.Resources>
+
+    <TabControl Margin="8">
+
+        <TabItem Header="Sección A - Personas">
+            <Grid Margin="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Datos de la persona" Grid.Row="0" Padding="6">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Nombres:" Grid.Row="0" Grid.Column="0"/>
+                        <TextBox x:Name="txtNombres" Grid.Row="0" Grid.Column="1" MaxLength="50"/>
+                        <Label Content="Apellidos:" Grid.Row="0" Grid.Column="2"/>
+                        <TextBox x:Name="txtApellidos" Grid.Row="0" Grid.Column="3" MaxLength="50"/>
+
+                        <Label Content="DNI:" Grid.Row="1" Grid.Column="0"/>
+                        <TextBox x:Name="txtDni" Grid.Row="1" Grid.Column="1" MaxLength="8"/>
+                        <Label Content="Teléfono:" Grid.Row="1" Grid.Column="2"/>
+                        <TextBox x:Name="txtTelefono" Grid.Row="1" Grid.Column="3" MaxLength="15"/>
+
+                        <Label Content="Email:" Grid.Row="2" Grid.Column="0"/>
+                        <TextBox x:Name="txtEmail" Grid.Row="2" Grid.Column="1" MaxLength="100"/>
+                    </Grid>
+                </GroupBox>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,6">
+                    <Button Content="Nuevo" Click="BtnPersonaNuevo_Click"/>
+                    <Button Content="Registrar" Click="BtnPersonaRegistrar_Click"/>
+                    <Button Content="Actualizar" Click="BtnPersonaActualizar_Click"/>
+                    <Button Content="Eliminar" Click="BtnPersonaEliminar_Click"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Label Content="Buscar (nombre, apellido o DNI):"/>
+                    <TextBox x:Name="txtBuscarPersona" Width="250" TextChanged="TxtBuscarPersona_TextChanged"/>
+                </StackPanel>
+
+                <DataGrid x:Name="dgPersonas" Grid.Row="3" SelectionChanged="DgPersonas_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding IdPersona}" Width="50"/>
+                        <DataGridTextColumn Header="Nombres" Binding="{Binding Nombres}" Width="*"/>
+                        <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" Width="*"/>
+                        <DataGridTextColumn Header="DNI" Binding="{Binding Dni}" Width="90"/>
+                        <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="100"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Sección B - Productos">
+            <Grid Margin="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Datos del producto" Grid.Row="0" Padding="6">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Nombre:" Grid.Row="0" Grid.Column="0"/>
+                        <TextBox x:Name="txtNombreProducto" Grid.Row="0" Grid.Column="1" MaxLength="40"/>
+                        <Label Content="Cantidad por unidad:" Grid.Row="0" Grid.Column="2"/>
+                        <TextBox x:Name="txtCantidadPorUnidad" Grid.Row="0" Grid.Column="3" MaxLength="20"/>
+
+                        <Label Content="Precio:" Grid.Row="1" Grid.Column="0"/>
+                        <TextBox x:Name="txtPrecio" Grid.Row="1" Grid.Column="1"/>
+                        <Label Content="Stock:" Grid.Row="1" Grid.Column="2"/>
+                        <TextBox x:Name="txtStock" Grid.Row="1" Grid.Column="3"/>
+                    </Grid>
+                </GroupBox>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,6">
+                    <Button Content="Nuevo" Click="BtnProductoNuevo_Click"/>
+                    <Button Content="Registrar" Click="BtnProductoRegistrar_Click"/>
+                    <Button Content="Actualizar" Click="BtnProductoActualizar_Click"/>
+                    <Button Content="Eliminar" Click="BtnProductoEliminar_Click"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Label Content="Buscar por nombre:"/>
+                    <TextBox x:Name="txtBuscarProducto" Width="250" TextChanged="TxtBuscarProducto_TextChanged"/>
+                </StackPanel>
+
+                <DataGrid x:Name="dgProductos" Grid.Row="3" SelectionChanged="DgProductos_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding IdProducto}" Width="50"/>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding NombreProducto}" Width="*"/>
+                        <DataGridTextColumn Header="Cantidad por unidad" Binding="{Binding CantidadPorUnidad}" Width="*"/>
+                        <DataGridTextColumn Header="Precio" Binding="{Binding PrecioUnidad, StringFormat=N2}" Width="90"/>
+                        <DataGridTextColumn Header="Stock" Binding="{Binding UnidadesEnExistencia}" Width="80"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>
