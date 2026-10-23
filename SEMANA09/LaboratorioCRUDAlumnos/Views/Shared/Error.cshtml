@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Error";
+}
+
+<div class="alert alert-danger">
+    <h4>Ocurrió un error</h4>
+    <p>No se pudo procesar la solicitud.</p>
+    @Html.ActionLink("Volver al listado", "Index", "Alumno", null, new { @class = "btn btn-secondary" })
+</div>
